@@ -163,6 +163,57 @@ angular
                         }
                     }
                 })
+                .state('dashboard.orderHistory', {
+                    templateUrl: 'components/order-history/orderHistory.html',
+                    url: '/order-history',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/order-history/orderHistoryService.js',
+                                    'components/order-history/orderHistory.js'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('dashboard.assignedTrips', {
+                    templateUrl: 'components/assigned-trips/assignedTrips.html',
+                    url: '/assigned-trips',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/assigned-trips/assignedTripsService.js',
+                                    'components/assigned-trips/assignedTrips.js'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('dashboard.ongoingTrips', {
+                    templateUrl: 'components/ongoing-trips/ongoingTrips.html',
+                    url: '/ongoing-trips',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/ongoing-trips/ongoingTripsService.js',
+                                    'components/ongoing-trips/ongoingTrips.js'
+                                ]
+                            })
+                        }
+                    }
+                })
                 // .state('dashboard.panels-wells', {
                 //     templateUrl: 'views/ui-elements/panels-wells.html',
                 //     url: '/panels-wells'

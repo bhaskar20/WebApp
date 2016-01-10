@@ -1,0 +1,261 @@
+'use strict';
+angular
+    .module('logiWebMain', [
+        'oc.lazyLoad',
+        'ui.router',
+        'ui.bootstrap',
+        'angular-loading-bar',
+    ])
+    .constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    })
+    .run(function($rootScope, $state, loginService) {
+        Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
+            "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
+        $rootScope.$on("auth-login-success", function() {
+            $state.transitionTo("dashboard");
+        });
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            if (toState.authenticate && !loginService.isAuthenticated()) {
+                $state.transitionTo("login");
+                event.preventDefault();
+            }
+        });
+    })
+    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider',
+        function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider) {
+            $locationProvider.html5Mode(true);
+            $ocLazyLoadProvider.config({
+                debug: true,
+                events: true,
+            });
+
+            $urlRouterProvider.otherwise('/home');
+
+            $stateProvider
+                .state('dashboard', {
+                    url: '/dashboard',
+                    authenticate: true,
+                    templateUrl: 'components/dashboard/main.html',
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                    name: 'logiWebMain',
+                                    files: [
+                                        'components/header/header.js',
+                                        'components/header-notification/header-notification.js',
+                                        'components/sidebar/sidebar.js',
+                                        'components/sidebar-search/sidebar-search.js'
+                                    ]
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'toggle-switch',
+                                    files: ["libs/angular-toggle-switch/angular-toggle-switch.min.js",
+                                        "libs/angular-toggle-switch/angular-toggle-switch.css"
+                                    ]
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'ngAnimate',
+                                    files: ['libs/angular-animate/angular-animate.js']
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'ngCookies',
+                                    files: ['libs/angular-cookies/angular-cookies.js']
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'ngResource',
+                                    files: ['libs/angular-resource/angular-resource.js']
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'ngSanitize',
+                                    files: ['libs/angular-sanitize/angular-sanitize.js']
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'ngTouch',
+                                    files: ['libs/angular-touch/angular-touch.js']
+                                })
+                        }
+                    }
+                })
+                // .state('dashboard.home', {
+                //     url: '/home',
+                //     controller: 'dashboardMainCtrl',
+                //     templateUrl: 'components/dashboard/home.html',
+                //     resolve: {
+                //         loadMyFiles: function($ocLazyLoad) {
+                //             return $ocLazyLoad.load({
+                //                 name: 'sbAdminApp',
+                //                 files: [
+                //                     'components/dashboard/main.js',
+                //                     'scripts/directives/timeline/timeline.js',
+                //                     'scripts/directives/notifications/notifications.js',
+                //                     'scripts/directives/chat/chat.js',
+                //                     'scripts/directives/dashboard/stats/stats.js'
+                //                 ]
+                //             })
+                //         }
+                //     }
+                // })
+                // .state('dashboard.form', {
+                //     templateUrl: 'views/form.html',
+                //     url: '/form'
+                // })
+                // .state('dashboard.blank', {
+                //     templateUrl: 'views/pages/blank.html',
+                //     url: '/blank'
+                // })
+                // .state('dashboard.chart', {
+                //     templateUrl: 'views/chart.html',
+                //     url: '/chart',
+                //     controller: 'ChartCtrl',
+                //     resolve: {
+                //         loadMyFile: function($ocLazyLoad) {
+                //             return $ocLazyLoad.load({
+                //                     name: 'chart.js',
+                //                     files: [
+                //                         'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                //                         'bower_components/angular-chart.js/dist/angular-chart.css'
+                //                     ]
+                //                 }),
+                //                 $ocLazyLoad.load({
+                //                     name: 'sbAdminApp',
+                //                     files: ['scripts/controllers/chartContoller.js']
+                //                 })
+                //         }
+                //     }
+                // })
+                .state('dashboard.reqOrder', {
+                    templateUrl: 'components/req-order/reqOrder.html',
+                    url: '/reqorder',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/req-order/reqOrderService.js',
+                                    'components/req-order/reqOrder.js'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('dashboard.order', {
+                    templateUrl: 'components/order/order.html',
+                    url: '/order',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/order/orderService.js',
+                                    'components/order/order.js'
+                                ]
+                            })
+                        }
+                    }
+                })
+                // .state('dashboard.panels-wells', {
+                //     templateUrl: 'views/ui-elements/panels-wells.html',
+                //     url: '/panels-wells'
+                // })
+                // .state('dashboard.buttons', {
+                //     templateUrl: 'views/ui-elements/buttons.html',
+                //     url: '/buttons'
+                // })
+                // .state('dashboard.notifications', {
+                //     templateUrl: 'views/ui-elements/notifications.html',
+                //     url: '/notifications'
+                // })
+                // .state('dashboard.typography', {
+                //     templateUrl: 'views/ui-elements/typography.html',
+                //     url: '/typography'
+                // })
+                // .state('dashboard.icons', {
+                //     templateUrl: 'views/ui-elements/icons.html',
+                //     url: '/icons'
+                // })
+                // .state('dashboard.grid', {
+                //     templateUrl: 'views/ui-elements/grid.html',
+                //     url: '/grid'
+                // })
+                .state('home', {
+                    templateUrl: 'components/staticpart/home.html',
+                    url: '/home',
+                    authenticate: false,
+                    resolve: {
+                        loadMyFile: function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'libs/modernizr.custom.js',
+                                    'libs/move-top.js',
+                                    'libs/easing.js',
+                                    'libs/classie.js',
+                                    'libs/uisearch.js',
+                                    'css/style.css'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('about', {
+                    templateUrl: 'components/staticpart/about.html',
+                    url: '/about',
+                    authenticate: false,
+                    resolve: {
+                        loadMyFile: function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'libs/modernizr.custom.js',
+                                    'libs/move-top.js',
+                                    'libs/easing.js',
+                                    'libs/classie.js',
+                                    'libs/uisearch.js',
+                                    'css/style.css'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('contact', {
+                    templateUrl: 'components/staticpart/contact.html',
+                    url: '/contact',
+                    authenticate: false,
+                    resolve: {
+                        loadMyFile: function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                    'libs/modernizr.custom.js',
+                                    'libs/move-top.js',
+                                    'libs/easing.js',
+                                    'libs/classie.js',
+                                    'libs/uisearch.js',
+                                    'css/style.css'
+                                ]
+                            })
+                        }
+                    }
+                })
+                .state('login', {
+                    templateUrl: 'components/login/login.html',
+                    url: '/login',
+                    controller: 'loginCtrl',
+                    authenticate: false,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                            })
+                        }
+                    }
+                })
+        }
+    ]);

@@ -73,3 +73,13 @@ body {
     text-decoration: none;
     background-color: #eee
 }
+
+.dashboard{
+    background-color: #f8f8f8!important;
+}
+.dashboardHeader{
+    color: #337ab7!important;
+    padding-top: 20px!important;
+    padding-left: 14px!important;
+    font-size: 30px!important;
+}

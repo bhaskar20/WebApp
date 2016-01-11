@@ -20,12 +20,19 @@ angular
         $rootScope.$on("auth-login-success", function() {
             $state.transitionTo("dashboard");
         });
+        $rootScope.$on("auth-logout-success", function() {
+            $state.transitionTo("login");
+        });
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            if (toState.name === "login" && loginService.isAuthenticated()) {
+                $state.transitionTo("dashboard.home");
+                event.preventDefault();
+            }
             if (toState.authenticate && !loginService.isAuthenticated()) {
                 $state.transitionTo("login");
                 event.preventDefault();
             }
-        });
+        })
     })
     .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider',
         function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider) {
@@ -82,25 +89,22 @@ angular
                         }
                     }
                 })
-                // .state('dashboard.home', {
-                //     url: '/home',
-                //     controller: 'dashboardMainCtrl',
-                //     templateUrl: 'components/dashboard/home.html',
-                //     resolve: {
-                //         loadMyFiles: function($ocLazyLoad) {
-                //             return $ocLazyLoad.load({
-                //                 name: 'sbAdminApp',
-                //                 files: [
-                //                     'components/dashboard/main.js',
-                //                     'scripts/directives/timeline/timeline.js',
-                //                     'scripts/directives/notifications/notifications.js',
-                //                     'scripts/directives/chat/chat.js',
-                //                     'scripts/directives/dashboard/stats/stats.js'
-                //                 ]
-                //             })
-                //         }
-                //     }
-                // })
+                .state('dashboard.home', {
+                    url: '/home',
+                    controller: 'dashboardHomeCtrl',
+                    templateUrl: 'components/dashboard-home/dashboardHome.html',
+                    resolve: {
+                        loadMyFiles: function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: 'logiWebMain',
+                                files: [
+                                    'components/dashboard-home/dashboardHome.js',
+                                    'components/directives/stats/stats.js'
+                                ]
+                            })
+                        }
+                    }
+                })
                 // .state('dashboard.form', {
                 //     templateUrl: 'views/form.html',
                 //     url: '/form'
@@ -251,7 +255,8 @@ angular
                                     'libs/easing.js',
                                     'libs/classie.js',
                                     'libs/uisearch.js',
-                                    'css/style.css'
+                                    'css/style.css',
+                                    'libs/responsiveslides.min.js'
                                 ]
                             })
                         }

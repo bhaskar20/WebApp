@@ -8,7 +8,7 @@ angular.module('logiWebMain')
       scope: {
       },
       controller:function($scope){
-        $scope.selectedMenu = 'dashboard';
+        $scope.selectedMenu = 'dashboard.home';
         $scope.collapseVar = 0;
         $scope.multiCollapseVar = 0;
         

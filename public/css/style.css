@@ -515,11 +515,6 @@ margin-bottom:50px;
 .bottom-text{
 background:#fff;
 padding: 52px 15px;
-border-radius: 100%;
--webkit-border-radius: 100%;
--o-border-radius: 100%;
--ms-border-radius: 100%;
--moz-border-radius: 100%;
 border: 2px solid transparent;
 }
 .bottom-text h3{
@@ -540,7 +535,6 @@ line-height:2em;
     font-size: 27px;
     color: #646464;
     background: #c2c2c2;
-    border-radius: 100%;
     padding: 20px 20px;
     top: -37px;
     text-align: center;

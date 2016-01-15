@@ -55,7 +55,6 @@ angular
                                     name: 'logiWebMain',
                                     files: [
                                         'components/header/header.js',
-                                        'components/header-notification/header-notification.js',
                                         'components/sidebar/sidebar.js',
                                         'components/sidebar-search/sidebar-search.js'
                                     ]

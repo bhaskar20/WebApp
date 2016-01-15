@@ -7,12 +7,20 @@
  * # adminPosHeader
  */
 angular.module('logiWebMain')
+    .controller('headerController',['$scope',function ($scope) {
+        $scope.user = "bhas";
+        $scope.logoutUser = function() {
+                $scope.user = "change";
+            };
+    }])
 	.directive('header',function(){
 		return {
         templateUrl:'components/header/header.html',
         restrict: 'E',
-        replace: true,
+        scope:false,
+        replace: true
     	}
-	});
+	})
+	
 
 

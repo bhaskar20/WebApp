@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Assign Trucks to Order</h1> </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Add Truck for ORDER ID : {{orderId}}</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form role="form">
+                            <div class="form-group col-sm-3">
+                                <label>Gps</label>
+                                <input class="form-control" placeholder="Enter GpsID" ng-model="tempTruck.GpsId"></input>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Tons</label>
+                                <input class="form-control" placeholder="Enter Tons" ng-model="tempTruck.Tons"></input>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Start Time</label>
+                                <input class="form-control" placeholder="Enter Start Time" ng-model="tempTruck.StartTime"> </input>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Start Time</label>
+                                <input class="form-control" placeholder="Enter Start Time" ng-model="tempTruck.SalesId">
+                                </input>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-lg btn-block btn-primary" ng-click="add()">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Added Trucks</div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>GpsId</th>
+                                    <th>Tons</th>
+                                    <th>Start Time</th>
+                                    <th>Sales Id</th>
+                                    <tbody>
+                                        <tr class="odd gradeX" ng-repeat="truck in res.TripList">
+                                            <td>{{truck.GpsId}}</td>
+                                            <td>{{truck.Tons}}</td>
+                                            <td>{{truck.StartTime}}</td>
+                                            <td>{{truck.SalesId}}</td>
+                                        </tr>
+                                    </tbody>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-ls btn-success btn-block" ng-click="ok()">Finish</button>
+    </div>
+    <div class="col-lg-6">
+        <button class="btn btn-ls btn-danger btn-block" ng-click="close()">Cancel</button>
+    </div>
+</div>

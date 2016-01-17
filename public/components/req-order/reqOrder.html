@@ -24,7 +24,7 @@
                                         <th>To</th>
                                         <th>Order Size</th>
                                         <th>Time</th>
-                                        <th>WaitTime</th>
+                                        <!-- <th>WaitTime</th> -->
                                         <th>Action</th>
                                         <tbody>
                                             <tr class="odd gradeX" ng-repeat="order in orders">
@@ -35,7 +35,7 @@
                                             <td>{{order.tons}}</td>
                                             <td>{{order.startTime}}</td>
                                             <!-- <td>{order.endLocation}</td> -->
-                                            <td><button class="btn btn-sm btn-primary" ng-click="acceptOrder(order.id)"></button><button class="btn btn-sm btn-danger" ng-click="denyOrder(order.id)"></button></td>
+                                            <td><button class="btn btn-sm btn-primary" ng-click="acceptOrder(order.id)">Accept</button> <button class="btn btn-sm btn-danger" ng-click="denyOrder(order.id)">Deny</button></td>
                                             </tr>
                                         </tbody>
                                     </tr>

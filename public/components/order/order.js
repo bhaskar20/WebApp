@@ -1,7 +1,7 @@
 'use strict';
 angular
     .module("logiWebMain")
-    .controller("orderCtrl", ["$scope", "orderService","$uibModal",function($scope, orderService,$uibModal) {
+    .controller("orderCtrl", ["$scope", "orderService", "$uibModal", function($scope, orderService, $uibModal) {
         $scope.assignLoadOrder = function() {
             // todo
         }
@@ -19,7 +19,7 @@ angular
                             order["orderType"] = "Agent";
                         }
                         order["startLocation"] = (results[i].get("StartLocation").latitude + "," + results[i].get("StartLocation").longitude);
-                        order["endLocation"] = (results[i].get("EndLocationLong") + " , " + results[i].get("EndLocationLat"));
+                        order["endLocation"] = (results[i].get("EndLocationLong") + "," + results[i].get("EndLocationLat"));
                         order["tons"] = results[i].get("Tons");
                         order["tonDone"] = results[i].get("TonDone");
                         order["deadline"] = results[i].get("DeadLine");
@@ -32,33 +32,57 @@ angular
             });
         }
         $scope.init();
-        $scope.sayHi = function () {
-            console.log("Hii");
-        };
-        $scope.assignTrip = function(id) {
-            $scope.assignTripOrderId=id;
+        $scope.assignTrip = function(id, start, end) {
+            $scope.data = {
+                "orderId": id,
+                "startLocationLat": start.split(',')[0],
+                "startLocationLong": start.split(',')[1],
+                "endLocationLat": end.split(',')[0],
+                "endLocationLong": end.split(',')[1]
+            }
             var assignModalInstance = $uibModal.open({
                 animation: 'true',
                 templateUrl: 'components/order/assignTrips.html',
                 controller: 'assignTripCtrl',
-                backdrop:'static',
-                size: size,
-                resolve:{
-                    id:function () {
-                        return $$scope.assignTripOrderId;
+                backdrop: 'static',
+                size: 'lg',
+                resolve: {
+                    data: function() {
+                        return $scope.data;
                     }
                 }
             });
+            assignModalInstance.result.then(function() {
+                $scope.init();
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        }
+
+    }])
+    .controller('assignTripCtrl', ['$scope', '$uibModalInstance', 'orderService', 'data', function($scope, $uibModalInstance, orderService, data) {
+        $scope.id = data.orderId;
+        $scope.res = {
+            "OrderId": data.orderId,
+            "StartLocationLat": data.startLocationLat,
+            "StartLocationLong": data.startLocationLong,
+            "EndLocationLat": data.endLocationLat,
+            "EndLocationLong": data.endLocationLong,
+            "TripList": []
+        }
+        $scope.tempTruck = {};
+        $scope.add = function() {
+            $scope.res.TripList.push($scope.tempTruck);
+            $scope.tempTruck = {};
+        }
+        $scope.ok = function() {
+            orderService.assignTrucksToOrder($scope.res).then(function (result) {
+                $uibModalInstance.close(result);
+            },function (user,err) {
+                console.log("Something bad occured at assignTrucksToOrder ");
+            })
+        }
+        $scope.close = function(res) {
+            $uibModalInstance.dismiss('cancel');
         }
     }])
-    // .controller('assignTripCtrl', ['$scope','$uibModalInstance','orderService','id', function($scope, $uibModalInstance,orderService,id){
-    //    $scope.orderId = id;
-    //    $scope.res = {}
-    //    $scope.ok =function (res) {
-           
-
-    //    }
-    //    $scope.close = function (res) {
-           
-    //    }
-    // }])

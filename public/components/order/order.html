@@ -37,8 +37,9 @@
                                             <td>{{order.tonDone}}</td>
                                             <td>{{order.deadline}}</td>
                                             <td>{{order.waitTime}}</td>
-                                            <td><button class="btn btn-sm btn-primary" ng-click="assignTrip(order.id)">Assign</button></td>
-                                            <td><button ng-click="count = count + 1">{{count}}</button></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary" ng-click="assignTrip(order.id,order.startLocation,order.endLocation)">Assign</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </tr>

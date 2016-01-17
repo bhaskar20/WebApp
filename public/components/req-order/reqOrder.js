@@ -1,10 +1,11 @@
 'use strict';
 angular
     .module("logiWebMain")
-    .controller("reqOrderCtrl", ["$scope", "reqOrderService", '$window',function($scope, reqOrderService,$window) {
+    .controller("reqOrderCtrl", ["$scope", "reqOrderService", '$window', function($scope, reqOrderService, $window) {
         $scope.addReqOder = function() {
             // body...
         }
+        $scope.orders = [];
         $scope.init = function() {
             reqOrderService.getReqOrder().then(function(results) {
                 var orders = [];
@@ -27,18 +28,20 @@ angular
         $scope.init();
         $scope.acceptOrder = function(id) {
             reqOrderService.accept(id).then(function(results) {
+                $scope.init();
+            }, function(user, err) {
                 if (err) {
                     $window.alert("something bad happend");
                 }
-                $scope.init();
             })
         }
         $scope.denyOrder = function(id) {
             reqOrderService.deny(id).then(function(results) {
+                $scope.init();
+            }, function(user, err) {
                 if (err) {
                     $window.alert("something bad happend");
                 }
-                $scope.init();
             })
         }
     }]);

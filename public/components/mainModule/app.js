@@ -18,7 +18,7 @@ angular
         Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
             "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
         $rootScope.$on("auth-login-success", function() {
-            $state.transitionTo("dashboard");
+            $state.transitionTo("dashboard.home");
         });
         $rootScope.$on("auth-logout-success", function() {
             $state.transitionTo("login");
@@ -80,11 +80,11 @@ angular
                                 $ocLazyLoad.load({
                                     name: 'ngSanitize',
                                     files: ['libs/angular-sanitize/angular-sanitize.js']
-                                }),
-                                $ocLazyLoad.load({
-                                    name: 'ngTouch',
-                                    files: ['libs/angular-touch/angular-touch.js']
                                 })
+                                // $ocLazyLoad.load({
+                                //     name: 'ngTouch',
+                                //     files: ['libs/angular-touch/angular-touch.js']
+                                // })
                         }
                     }
                 })
@@ -134,6 +134,7 @@ angular
                 // })
                 .state('dashboard.reqOrder', {
                     templateUrl: 'components/req-order/reqOrder.html',
+                    controller: 'reqOrderCtrl',
                     url: '/reqorder',
                     authenticate: true,
                     serie: true,
@@ -152,6 +153,7 @@ angular
                 .state('dashboard.order', {
                     templateUrl: 'components/order/order.html',
                     url: '/order',
+                    controller:'orderCtrl',
                     authenticate: true,
                     serie: true,
                     resolve: {
@@ -163,6 +165,7 @@ angular
                                     'components/order/order.js'
                                 ]
                             })
+
                         }
                     }
                 })

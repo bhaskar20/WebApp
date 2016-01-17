@@ -1,4 +1,4 @@
 "use strict";
-angular.module("logiWebMain").controller("dashboardHomeCtrl", function($scope, $position) {
+angular.module("logiWebMain").controller("dashboardHomeCtrl", function($scope) {
 
 });

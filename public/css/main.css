@@ -83,3 +83,5 @@ body {
     padding-left: 14px!important;
     font-size: 30px!important;
 }
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

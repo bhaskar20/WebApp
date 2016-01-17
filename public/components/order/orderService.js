@@ -13,5 +13,15 @@ angular.module('logiWebMain')
                     return error;
                 });
         };
+        orderService.assignTrucksToOrder = function (data) {
+            return Parse.Cloud.run('AssignTripsToParticularOrder', {
+                data
+            }).then(function(results) {
+                    return results;
+                },
+                function(user, error) {
+                    return error;
+                });
+        }
         return orderService;
     }])

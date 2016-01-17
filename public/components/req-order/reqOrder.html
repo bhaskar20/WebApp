@@ -18,20 +18,24 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Local Agent</th>
                                         <th>From</th>
                                         <th>To</th>
                                         <th>Order Size</th>
                                         <th>Time</th>
                                         <th>WaitTime</th>
+                                        <th>Action</th>
                                         <tbody>
                                             <tr class="odd gradeX" ng-repeat="order in orders">
+                                            <td>{{order.id}}</td>
                                             <td>{{order.bookerId}}</td>
                                             <td>{{order.startLocation}}</td>
                                             <td>{{order.endLocation}}</td>
                                             <td>{{order.tons}}</td>
                                             <td>{{order.startTime}}</td>
                                             <!-- <td>{order.endLocation}</td> -->
+                                            <td><button class="btn btn-sm btn-primary" ng-click="acceptOrder(order.id)"></button><button class="btn btn-sm btn-danger" ng-click="denyOrder(order.id)"></button></td>
                                             </tr>
                                         </tbody>
                                     </tr>

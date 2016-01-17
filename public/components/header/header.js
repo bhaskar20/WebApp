@@ -7,10 +7,14 @@
  * # adminPosHeader
  */
 angular.module('logiWebMain')
-    .controller('headerController',['$scope',function ($scope) {
+    .controller('headerController',['$scope','$rootScope','AUTH_EVENTS',function ($scope,$rootScope,AUTH_EVENTS) {
         $scope.user = "bhas";
         $scope.logoutUser = function() {
-                $scope.user = "change";
+            Parse.User.logOut().then(function (res) {
+                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            },function (user,err) {
+                console.log("something bad happeed");
+            });
             };
     }])
 	.directive('header',function(){

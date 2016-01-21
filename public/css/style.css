@@ -389,6 +389,7 @@ a.callbacks_nav.callbacks1_nav.prev {
 }
 
 .callbacks_tabs{
+  display:none;
 	list-style: none;
 	position: absolute;
 	top: 141%;

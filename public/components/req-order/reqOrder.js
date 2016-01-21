@@ -21,7 +21,7 @@ angular
                         orders.push(order);
                     }
                     $scope.orders = orders;
-                    $scope.$apply;
+                    $scope.$apply();
                 }
             })
         }

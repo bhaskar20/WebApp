@@ -220,6 +220,23 @@ angular
                         }
                     }
                 })
+                .state('dashboard.maps', {
+                    templateUrl: 'components/maps/map.html',
+                    url: '/map',
+                    authenticate: true,
+                    serie: true,
+                    resolve: {
+                        function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name: "logiWebMain",
+                                files: [
+                                    'components/maps/mapService.js',
+                                    'components/maps/mapController.js'
+                                ]
+                            })
+                        }
+                    }
+                })
                 // .state('dashboard.panels-wells', {
                 //     templateUrl: 'views/ui-elements/panels-wells.html',
                 //     url: '/panels-wells'

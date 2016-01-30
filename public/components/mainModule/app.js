@@ -4,7 +4,7 @@ angular
         'oc.lazyLoad',
         'ui.router',
         'ui.bootstrap',
-        'angular-loading-bar',
+        'angular-loading-bar'
     ])
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
@@ -80,6 +80,13 @@ angular
                                 $ocLazyLoad.load({
                                     name: 'ngSanitize',
                                     files: ['libs/angular-sanitize/angular-sanitize.js']
+                                }),
+                                $ocLazyLoad.load({
+                                    name: 'uiGmapgoogle-maps',
+                                    files: [
+                                        'libs/maps/angular-simple-logger.min.js',
+                                        'libs/maps/angular-google-maps.min.js'
+                                    ]
                                 })
                                 // $ocLazyLoad.load({
                                 //     name: 'ngTouch',
@@ -153,7 +160,7 @@ angular
                 .state('dashboard.order', {
                     templateUrl: 'components/order/order.html',
                     url: '/order',
-                    controller:'orderCtrl',
+                    controller: 'orderCtrl',
                     authenticate: true,
                     serie: true,
                     resolve: {
@@ -224,16 +231,18 @@ angular
                     templateUrl: 'components/maps/map.html',
                     url: '/map',
                     authenticate: true,
+                    controller: 'mapController',
                     serie: true,
                     resolve: {
                         function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: "logiWebMain",
-                                files: [
-                                    'components/maps/mapService.js',
-                                    'components/maps/mapController.js'
-                                ]
-                            })
+                                    name: "logiWebMain",
+                                    files: [
+                                        'components/maps/mapService.js',
+                                        'components/maps/mapController.js'
+                                    ]
+                                })
+                                
                         }
                     }
                 })

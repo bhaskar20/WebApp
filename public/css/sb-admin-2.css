@@ -212,7 +212,8 @@ body {
 }
 
 .login-panel {
-    margin-top: 25%
+    margin-top: 25%;
+    border-radius: 10px;
 }
 
 .flot-chart {

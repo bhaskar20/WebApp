@@ -873,7 +873,6 @@ margin-top:50px;
 }
 /*-- footer --*/
 .footer-temp{
-padding:50px 0;
 background:#393939;
 }
 .footer-grid-temp ul{
@@ -2202,5 +2201,31 @@ h3.tittle-temp.tit3-temp {
 	.bottom-text-temp h3 {
 	  font-size: 15px;
 	}
+}
+
+/*--footer--*/
+footer {
+    color: #fff;
+}
+
+footer h3 {
+    margin-bottom: 30px;
+}
+
+footer .footer-above {
+    padding-top: 50px;
+    background-color: #2c3e50;
+}
+
+footer .footer-col {
+    margin-bottom:50px;
+}
+.footer-title{
+    min-height: 70px;
+    text-align:center;
+    font-size:32px;
+    font-family: 'Alegreya', serif;
+    color:#fc3a3a;
+    margin-bottom:50px;
 }
 /*-- //responsive media queries --*/

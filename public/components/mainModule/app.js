@@ -252,10 +252,10 @@ angular
                                 files: [
                                     'libs/modernizr.custom.js',
                                     'libs/move-top.js',
-                                    'libs/easing.js',
+                                    /*'libs/easing.js',*/
                                     'libs/classie.js',
                                     'css/style.css',
-                                    'libs/responsiveslides.min.js'
+                                    'libs/responsiveslides.min.js',
                                 ]
                             })
                         }

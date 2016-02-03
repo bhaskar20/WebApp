@@ -53,10 +53,13 @@
     <script src="components/login/loginService.js"></script>
     <script src="components/login/loginController.js"></script>
     <script src="components/contactForm/contactFormController.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+
     <base href="/"></base>
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".header" data-offset="100">
     <div ng-app="logiWebMain">
         <div ui-view></div>
     </div>

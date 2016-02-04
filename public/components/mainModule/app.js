@@ -4,7 +4,8 @@ angular
         'oc.lazyLoad',
         'ui.router',
         'ui.bootstrap',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'uiGmapgoogle-maps'
     ])
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
@@ -87,13 +88,6 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                                 $ocLazyLoad.load({
                                     name: 'ngSanitize',
                                     files: ['libs/angular-sanitize/angular-sanitize.js']
-                                }),
-                                $ocLazyLoad.load({
-                                    name: 'uiGmapgoogle-maps',
-                                    files: [
-                                        'libs/maps/angular-simple-logger.min.js',
-                                        'libs/maps/angular-google-maps.min.js'
-                                    ]
                                 })
                                 // $ocLazyLoad.load({
                                 //     name: 'ngTouch',

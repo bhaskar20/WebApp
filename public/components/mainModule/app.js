@@ -34,13 +34,20 @@ angular
             }
         })
     })
-    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider',
-        function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider) {
+    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider','uiGmapGoogleMapApiProvider',
+function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
             $locationProvider.html5Mode(true);
             $ocLazyLoadProvider.config({
                 debug: true,
                 events: true,
             });
+            //map
+                uiGmapGoogleMapApiProvider.configure({
+                    //    key: 'your api key',
+                    v: '3.20', //defaults to latest 3.X anyhow
+                    libraries: 'weather,geometry,visualization'
+                });
+
 
             $urlRouterProvider.otherwise('/home');
 

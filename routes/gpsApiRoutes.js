@@ -1,4 +1,4 @@
-﻿var methods = require('../helper/gpsHelper.js');
+﻿var methods = require('../helper/gpsApiHelper.js');
 var express = require('express');
 var router = express.Router();
 

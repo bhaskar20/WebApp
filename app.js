@@ -57,10 +57,10 @@ mongoose.connect(mongooseUri, options, function (argument) {
 var conn = mongoose.connection;
 
 conn.on('open', function (ref) {
-    console.log('Connected to mongo server on ' + moment.format('MMMM Do YYYY,hh:mm:ss a'));
+    console.log('Connected to mongo server on ' + moment().format('MMMM Do YYYY,hh:mm:ss a'));
 });
 conn.on('error', function (err) {
-    console.log('Could not connect to mongo server on' + moment.format('MMMM Do YYYY,hh:mm:ss a'));
+    console.log('Could not connect to mongo server on' + moment().format('MMMM Do YYYY,hh:mm:ss a'));
     console.log(err);
 });
 

@@ -2231,6 +2231,7 @@ footer .footer-col {
   color: white;
 }
 .footer-title{
+    min-height: 60px;
     text-align:left;
     font-size:28px;
     color:#fc3a3a;

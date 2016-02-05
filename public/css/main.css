@@ -27,6 +27,18 @@ body {
     }
 }
 
+@media (min-width:768px) {
+    .footer-box {
+        max-width: 1030px
+    }
+}
+@media (min-width:768px) {
+    .row {
+        min-width: 1030px
+    }
+}
+
+
 .container-narrow>hr {
     margin: 30px 0
 }

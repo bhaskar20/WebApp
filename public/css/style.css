@@ -3,7 +3,9 @@ html, body{
 	margin:0;
 	background:	#fff;
 	font-family: 'Open Sans', sans-serif;
-  overflow: hidden;
+}
+body{
+  overflow-x:hidden; 
 }
 h4, h5, h6,
 h1, h2, h3 {

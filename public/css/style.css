@@ -517,7 +517,12 @@ color:#fc3a3a;
 margin-bottom:50px;
 
 }
+.container-fluid-temp{
+  margin-left:100px;
+  margin-right:100px;
+}
 .bottom-text-temp{
+min-height: 330px;
 background:#fff;
 padding: 52px 15px;
 border: 2px solid transparent;
@@ -548,7 +553,7 @@ line-height:2em;
     left: 37%;
 }
 .bottom-grids-temp {
-    margin-top: 90px;
+  margin-top: 90px;
 }
 .bottom-grid-temp:hover div.bottom-text-temp{
 border:2px solid #2FD828;
@@ -1095,7 +1100,6 @@ border:none;
 	outline: none;
 	padding: 10px;
 	font-size: 14px;
-
 	color: #fc3a3a;
 	margin: 0 24px 24px 0;
 }

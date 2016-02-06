@@ -34,7 +34,7 @@ body {
 }
 @media (min-width:768px) {
     .row {
-        min-width: 1030px
+        min-width: 830px
     }
 }
 

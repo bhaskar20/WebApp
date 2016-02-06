@@ -1,6 +1,4 @@
 node_modules/*
-*.sublime-project
-resources/
-server/config
+config/*
 npm-debug.log
 *.sln

@@ -5,16 +5,10 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angular-loading-bar',
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'flux',
+        'logiWebMainDataProvider'
     ])
-    .constant('AUTH_EVENTS', {
-        loginSuccess: 'auth-login-success',
-        loginFailed: 'auth-login-failed',
-        logoutSuccess: 'auth-logout-success',
-        sessionTimeout: 'auth-session-timeout',
-        notAuthenticated: 'auth-not-authenticated',
-        notAuthorized: 'auth-not-authorized'
-    })
     .run(function($rootScope, $state, loginService) {
         Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
             "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
@@ -35,13 +29,18 @@ angular
             }
         })
     })
-    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider','uiGmapGoogleMapApiProvider',
-function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
+    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider','uiGmapGoogleMapApiProvider','fluxProvider',
+function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider,uiGmapGoogleMapApiProvider,fluxProvider) {
+            
+    //flux config
+    fluxProvider.setImmutableDefaults({ immutable: false });
+
             $locationProvider.html5Mode(true);
             $ocLazyLoadProvider.config({
                 debug: true,
                 events: true,
             });
+
             //map
                 uiGmapGoogleMapApiProvider.configure({
                     //    key: 'your api key',
@@ -58,7 +57,7 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                     authenticate: true,
                     templateUrl: 'components/dashboard/main.html',
                     resolve: {
-                        function($ocLazyLoad) {
+                        function ($ocLazyLoad) {
                             return $ocLazyLoad.load({
                                     name: 'logiWebMain',
                                     files: [

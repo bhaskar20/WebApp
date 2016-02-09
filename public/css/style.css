@@ -4,6 +4,9 @@ html, body{
 	background:	#fff;
 	font-family: 'Open Sans', sans-serif;
 }
+body{
+  overflow-x:hidden; 
+}
 h4, h5, h6,
 h1, h2, h3 {
 margin: 0;
@@ -491,6 +494,7 @@ top: 9%;
 /*-- banner-info-temp --*/
 .banner-info-temp {
     margin-top: 110px;
+    min-height: 150px;
 }
 
 .banner-info-temp h3{
@@ -517,7 +521,12 @@ color:#fc3a3a;
 margin-bottom:50px;
 
 }
+.container-fluid-temp{
+  margin-left:100px;
+  margin-right:100px;
+}
 .bottom-text-temp{
+min-height: 330px;
 background:#fff;
 padding: 52px 15px;
 border: 2px solid transparent;
@@ -548,7 +557,7 @@ line-height:2em;
     left: 37%;
 }
 .bottom-grids-temp {
-    margin-top: 90px;
+  margin-top: 90px;
 }
 .bottom-grid-temp:hover div.bottom-text-temp{
 border:2px solid #2FD828;
@@ -1095,7 +1104,6 @@ border:none;
 	outline: none;
 	padding: 10px;
 	font-size: 14px;
-
 	color: #fc3a3a;
 	margin: 0 24px 24px 0;
 }
@@ -2214,8 +2222,9 @@ footer h3 {
 }
 
 footer .footer-above {
-    padding-top: 50px;
+    padding: 50px;
     background-color: #2c3e50;
+    margin: -15px;
 }
 
 footer .footer-col {

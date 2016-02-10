@@ -2,10 +2,11 @@
     .run(function(){
     //specific to this store
 })
-.store("mapsStore", ['MAPSACTIONS','ongoingTripsStore', function(MAPSACTIONS,ongoingTripsStore){
+.store("mapsStore", ['MAPSACTIONS', 'ongoingTripsStore', "mapsActionHandler", function (MAPSACTIONS, ongoingTripsStore, mapsActionHandler) {
     var _handlers = {};
     var _exports = {};
     var _mapsModels = {};
+    var _gpsId = [];
 
     //Methods to handle data update from dispatcher
     //init handler
@@ -19,6 +20,7 @@
 
     _exports = {
         //methods for ui to call to get data
+        getCurrentLocation: _getCurrentLocation
     }
     var storeDefinition = {
         handlers: _handlers,
@@ -30,7 +32,9 @@
     var _handleMapInit = function () {
         //handle initial map load
         var ongoingTrips = ongoingTripsStore.getOngoingTrips();
-        //var loc = self.getCurrentLocation() 
+        // TODO get gpsID's and store in _gpsId
+        var loc = mapsActionHandler.getCurrentLocation(_gpsId);
+        //TODO merge loc with ongoingTrips and save in _mapsModels
     }
     var handleMapRefresh = function () {
         //handle map refresh
@@ -42,6 +46,10 @@
         //handle map errors
     }
 
+    //methods
+    function getCurrentLocation(gpsIdArray) {
+
+    }
 
     function emitStoreChange(type) {
         var self = this;

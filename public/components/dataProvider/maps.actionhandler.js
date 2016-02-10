@@ -1,11 +1,50 @@
 ﻿angular.module("logiWebMainDataProvider")
-    .run(function () {
-        //run
-    })
-.factory("mapsActionHandler",[function(){
-    var service = {};
+    .factory('mapsActionHandler', mapsActionHandler)
+    .run(runBlock);
+
+runBlock.$inject = [];
+function runBlock() {
+
+}
+mapsActionHandler.$inject = ["flux","$log"];
+function mapsActionHandler(flux, $log) {
+    var service = {
+        _getCurrentLocation: getCurrentLocation
+    }
     return service;
-}])
+
+    function _getCurrentLocation(params) {
+        try {
+            flux.dispatch(MAPSACTIONS.maps_Refreshing, null);
+        }
+        catch (e) {
+            $log.error('mapsActionHandler: ' + MAPSACTIONS.maps_Refreshing + ' dispatch failed - ' + e);
+        }
+        try {
+            mapsDataHandler.getLocation(params, true).then(mapsDataSuccessHandler, mapsDataFailureHandler);
+        }
+        catch (e) {
+            $log.error('mapsActionHandler: Error while fetching data for maps - ' + e);
+        }
+    }
+    function mapsDataSuccessHandler(success) {
+        try {
+            flux.dispatch(MAPSACTIONS.maps_RefreshComplete, { status: success.status, data: success.data });
+        }
+        catch (e) {
+            $log.error('mapsActionHandler: ' + MAPSACTIONS.maps_RefreshComplete + ' flux dispatch failed - ' + e);
+        }
+    }
+
+    function mapsDataFailureHandler(error) {
+        try {
+            flux.dispatch(MAPSACTIONS.maps_RefreshError, { status: error.status, data: null });
+        }
+        catch (e) {
+            $log.error('mapsActionHandler: ' + MAPSACTIONS.maps_RefreshError + ' flux dispatch failed - ' + e);
+        }
+    }
+}
 
 /*
  * (function (angular) {

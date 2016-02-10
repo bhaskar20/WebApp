@@ -1,8 +1,37 @@
-﻿angular.module("logiWebMainDataProvider")
-.factory("mapsDataHandler", [function () {
-    var service = {};
+﻿angular.module("logiWebMainDataProvider").factory("mapsDataHandler", mapsDataHandler);
+mapsDataHandler.$inject = ['$http','$q','$log'];
+function mapsDataHandler($http,$q,$log){
+    var locationPromise = null;
+    var service = {
+        getLocation: _getLocation
+    };
     return service;
+    function _getLocation(params,forceRef){
+        var canceller = $q.defer();
+        if (locationPromise) {
+            return locationPromise.promise;
+        }
+        function _cancel(userStatus) {
+            $log.info(userStatus);
+            canceller.resolve(userStatus);
+        }
+        //TODO ADD URL
+        var _promise = $http({
+            method: 'POST',
+            url: '',
+            data: params,
+            timeout: canceller.promise,
+            responseType: 'json',
+            cache: false     
+        });            
 
+        locationPromise = {
+            promise: _promise,
+            cancel: _cancel
+        };
+        return locationPromise.promise;
+    }
+}
     /*
  (function (angular) {
     'use strict';

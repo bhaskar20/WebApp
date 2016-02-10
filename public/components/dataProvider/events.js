@@ -7,6 +7,9 @@
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
 })
+.constant('APPACTIONS', {
+    init: 'init'
+})
 .constant('MAPSACTIONS', {
     maps_init:'maps-init',
     maps_Refreshing: 'maps-refreshing',

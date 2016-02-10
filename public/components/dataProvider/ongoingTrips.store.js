@@ -1,15 +1,16 @@
 ﻿angular.module("logiWebMainDataProvider")
-    .run(function () {
-        //specific to this store
-    })
-.store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', function (ONGOINGTRIPSACTIONS) {
+    .run(runBlock)
+runBlock.$inject = ['APPACTIONS', '$rootScope', 'ongoingTripsStore'];
+function runBlock(APPACTIONS, $rootScope, ongoingTripsStore) {
+}
+angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', function (ONGOINGTRIPSACTIONS) {
     var _handlers = {};
     var _exports = {};
     var _ongoingTripsModels = {};
 
     //Methods to handle data update from dispatcher
     //init handler
-    //_handlers[MAPSACTIONS.maps_init] = _handleMapsInit;
+    _handlers[APPACTIONS.init] = _handleInit;
     //ui refresh handler
     //_handlers[MAPSACTIONS.maps_Refreshing] = handleMapRefresh;
     //ui show and update store 
@@ -32,7 +33,9 @@
         var self = this;
         return self.ongoingTripsModels;
     }
-
+    function handleInit() {
+        //todo
+    }
     function emitStoreChange(type) {
         var self = this;
         //Publish store stale change events only if there are active UI listeners

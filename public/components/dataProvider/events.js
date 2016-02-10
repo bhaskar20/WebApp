@@ -7,8 +7,18 @@
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
 })
+.constant('APPACTIONS', {
+    init: 'init'
+})
 .constant('MAPSACTIONS', {
     maps_init:'maps-init',
+    maps_Refreshing: 'maps-refreshing',
+    maps_RefreshComplete: 'maps-refresh-complete',
+    maps_RefreshError: 'maps-refresh-error',
+})
+.constant('ONGOINGTRIPSACTIONS', {
+    //todo
+    maps_init: 'maps-init',
     maps_Refreshing: 'maps-refreshing',
     maps_RefreshComplete: 'maps-refresh-complete',
     maps_RefreshError: 'maps-refresh-error',

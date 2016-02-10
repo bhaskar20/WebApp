@@ -13,6 +13,13 @@
     maps_RefreshComplete: 'maps-refresh-complete',
     maps_RefreshError: 'maps-refresh-error',
 })
+.constant('ONGOINGTRIPSACTIONS', {
+    //todo
+    maps_init: 'maps-init',
+    maps_Refreshing: 'maps-refreshing',
+    maps_RefreshComplete: 'maps-refresh-complete',
+    maps_RefreshError: 'maps-refresh-error',
+})
 /*
  * (function (angular) {
     angular.module('CF.RUI.DataProvider')

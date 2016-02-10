@@ -2,10 +2,10 @@
     .run(function(){
     //specific to this store
 })
-.store("mapsStore", ['MAPSACTIONS', function(MAPSACTIONS){
+.store("mapsStore", ['MAPSACTIONS','ongoingTripsStore', function(MAPSACTIONS,ongoingTripsStore){
     var _handlers = {};
     var _exports = {};
-    var _mapModels = {};
+    var _mapsModels = {};
 
     //Methods to handle data update from dispatcher
     //init handler
@@ -23,12 +23,14 @@
     var storeDefinition = {
         handlers: _handlers,
         exports: _exports,
-        mapModels: _mapModels
+        mapsModels: _mapsModels
     }
     return storeDefinition;
 
     var _handleMapInit = function () {
         //handle initial map load
+        var ongoingTrips = ongoingTripsStore.getOngoingTrips();
+        //var loc = self.getCurrentLocation() 
     }
     var handleMapRefresh = function () {
         //handle map refresh

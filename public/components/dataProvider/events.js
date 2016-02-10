@@ -18,10 +18,10 @@
 })
 .constant('ONGOINGTRIPSACTIONS', {
     //todo
-    maps_init: 'maps-init',
-    maps_Refreshing: 'maps-refreshing',
-    maps_RefreshComplete: 'maps-refresh-complete',
-    maps_RefreshError: 'maps-refresh-error',
+    ongoingTrips_init: 'ongoingTrips-init',
+    ongoingTrips_Refreshing: 'ongoingTrips-refreshing',
+    ongoingTrips_RefreshComplete: 'ongoingTrips-refresh-complete',
+    ongoingTrips_RefreshError: 'ongoingTrips-refresh-error',
 })
 /*
  * (function (angular) {

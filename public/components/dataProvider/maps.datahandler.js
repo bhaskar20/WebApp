@@ -84,4 +84,3 @@ function mapsDataHandler($http,$q,$log){
     }
 })(window.angular);
      */
-}])

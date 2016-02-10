@@ -10,8 +10,6 @@ angular
         'logiWebMainDataProvider'
     ])
     .run(function($rootScope, $state, loginService) {
-        Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
-            "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
         $rootScope.$on("auth-login-success", function() {
             $state.transitionTo("dashboard.home");
         });

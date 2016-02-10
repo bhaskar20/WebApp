@@ -1,22 +1,29 @@
 ﻿angular.module("logiWebMainDataProvider")
     .run(runBlock)
-runBlock.$inject = ['APPACTIONS', '$rootScope', 'ongoingTripsStore'];
-function runBlock(APPACTIONS, $rootScope, ongoingTripsStore) {
+runBlock.$inject = ['APPACTIONS', '$rootScope', 'ongoingTripsActionHandler', 'ongoingTripsStore'];
+function runBlock(APPACTIONS, $rootScope, ongoingTripsActionHandler, ongoingTripsStore) {
+    $rootScope.$listenTo(ongoingTripsStore, APPACTIONS.init, function () {
+        ongoingTripsActionHandler.getOngoingTrips_ActionHandler();
+    })
 }
-angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', function (ONGOINGTRIPSACTIONS) {
+angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', "APPACTIONS", function (ONGOINGTRIPSACTIONS, APPACTIONS) {
     var _handlers = {};
     var _exports = {};
-    var _ongoingTripsModels = {};
+    var _initialize = function () {
+        this.state = this.immutable({
+            ongoingTrips: []
+        });
+
+    }
 
     //Methods to handle data update from dispatcher
     //init handler
-    _handlers[APPACTIONS.init] = _handleInit;
     //ui refresh handler
-    //_handlers[MAPSACTIONS.maps_Refreshing] = handleMapRefresh;
+    _handlers[ONGOINGTRIPSACTIONS.ongoingTrips_Refreshing] = _handleOngoingTripsRefresh;
     //ui show and update store 
-    //_handlers[MAPSACTIONS.maps_RefreshComplete] = updateMapRefresh;
+    _handlers[ONGOINGTRIPSACTIONS.ongoingTrips_RefreshComplete] = _updateOngoingTripsRefresh;
     //handle error
-    //_handlers[MAPSACTIONS.maps_RefreshError] = handleError;
+    _handlers[ONGOINGTRIPSACTIONS.ongoingTrips_RefreshError] = _handleOngoingTripsError;
 
     _exports = {
         //methods for ui to call to get data
@@ -25,16 +32,26 @@ angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTR
     var storeDefinition = {
         handlers: _handlers,
         exports: _exports,
-        ongoingTripsModels: _ongoingTripsModels
+        initialize : _initialize
     }
     return storeDefinition;
 
     function _getOngoingTrips() {
         var self = this;
-        return self.ongoingTripsModels;
+        return self.state.ongoingTripsModels;
     }
-    function handleInit() {
+    function _handleInit() {
         //todo
+    }
+    function _handleOngoingTripsRefresh() {
+
+    }
+    function _updateOngoingTripsRefresh(obj) {
+        var self = this;
+        self.state.ongoingTripsModels = obj;
+    }
+    function _handleOngoingTripsError() {
+
     }
     function emitStoreChange(type) {
         var self = this;

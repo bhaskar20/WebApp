@@ -28,6 +28,10 @@
     <script src="libs/uisearch.js"></script>
     -->
     <script src="libs/parse-1.6.14.js"></script>
+    <script>
+        Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
+            "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
+    </script>
     <!-- dashboard -->
     <script src="libs/jquery.min.js"></script>
     <script src="libs/lodash.js"></script>
@@ -62,8 +66,13 @@
     <!--data providers-->
     <script src="components/dataProvider/dataprovider.module.js"></script>
     <script src="components/dataProvider/events.js"></script>
-    <script src="components/dataProvider/maps.actionhandler.js"></script>
+    <!--ongoingtripStore-->
+    <script src="components/dataProvider/ongoingTrips.datahandler.js"></script>
+    <script src="components/dataProvider/ongoingTrips.actionhandler.js"></script>
+    <script src="components/dataProvider/ongoingTrips.store.js"></script>
+    <!--Maps-->
     <script src="components/dataProvider/maps.datahandler.js"></script>
+    <script src="components/dataProvider/maps.actionhandler.js"></script>
     <script src="components/dataProvider/maps.store.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">

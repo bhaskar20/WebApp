@@ -6,10 +6,10 @@ runBlock.$inject = [];
 function runBlock() {
 
 }
-mapsActionHandler.$inject = ["flux","$log"];
-function mapsActionHandler(flux, $log) {
+mapsActionHandler.$inject = ["flux", "$log", "mapsDataHandler", "MAPSACTIONS"];
+function mapsActionHandler(flux, $log, mapsDataHandler, MAPSACTIONS) {
     var service = {
-        _getCurrentLocation: getCurrentLocation
+        getCurrentLocation: _getCurrentLocation
     }
     return service;
 

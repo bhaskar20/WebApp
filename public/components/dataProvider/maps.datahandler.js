@@ -17,9 +17,12 @@ function mapsDataHandler($http,$q,$log){
         }
         //TODO ADD URL
         var _promise = $http({
-            method: 'POST',
-            url: '',
-            data: params,
+            method: 'GET',
+            url: '/api/getDataAtTimeForMultipleGps/',
+            params:{
+                gpsIds:JSON.stringify(params),
+                time:Date.now()
+            },
             timeout: canceller.promise,
             responseType: 'json',
             cache: false     

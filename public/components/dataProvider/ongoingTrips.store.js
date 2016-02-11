@@ -13,8 +13,8 @@ angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTR
         this.state = this.immutable({
             ongoingTrips: []
         });
-
     }
+    var isRefreshing = false;
 
     //Methods to handle data update from dispatcher
     //init handler
@@ -40,15 +40,15 @@ angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTR
         var self = this;
         return self.state.ongoingTripsModels;
     }
-    function _handleInit() {
-        //todo
-    }
     function _handleOngoingTripsRefresh() {
-
+        var self = this;
+        var isrefreshing = true;
+        emitStoreChange.call(self, ONGOINGTRIPSACTIONS.ongoingTrips_Refreshing + ONGOINGTRIPSACTIONS.stale);
     }
     function _updateOngoingTripsRefresh(obj) {
         var self = this;
         self.state.ongoingTripsModels = obj;
+        emitStoreChange.call(self, ONGOINGTRIPSACTIONS.ongoingTrips_RefreshComplete);
     }
     function _handleOngoingTripsError() {
 

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('logiWebMain')
-    .factory('mapService    ', ["$q",function ($q) {
+    .factory('mapService', ["$q",function ($q) {
         var mapService = {};
         mapService.ongoingTrips;
         mapService.errors = [];

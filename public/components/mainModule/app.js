@@ -6,9 +6,16 @@ angular
         'ui.bootstrap',
         'angular-loading-bar',
         'uiGmapgoogle-maps',
-        'flux',
-        'logiWebMainDataProvider'
+        'flux'
     ])
+    .constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    })
     .run(function($rootScope, $state, loginService) {
         $rootScope.$on("auth-login-success", function() {
             $state.transitionTo("dashboard.home");
@@ -85,11 +92,24 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                                 $ocLazyLoad.load({
                                     name: 'ngSanitize',
                                     files: ['libs/angular-sanitize/angular-sanitize.js']
-                                })
+                                }),
                                 // $ocLazyLoad.load({
                                 //     name: 'ngTouch',
                                 //     files: ['libs/angular-touch/angular-touch.js']
-                                // })
+                            // })
+                            $ocLazyLoad.load({
+                                name: 'logiWebMainDataProvider',
+                                files: ['components/dataProvider/dataprovider.module.js',
+                                'components/dataProvider/events.js',
+                                //ongoing trips
+                                'components/dataProvider/ongoingTrips.datahandler.js',
+                                'components/dataProvider/ongoingTrips.actionhandler.js',
+                                'components/dataProvider/ongoingTrips.store.js',
+                                //maps
+                                'components/dataProvider/maps.datahandler.js',
+                                'components/dataProvider/maps.actionhandler.js',
+                                'components/dataProvider/maps.store.js']
+                            })
                         }
                     }
                 })

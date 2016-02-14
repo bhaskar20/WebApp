@@ -9,6 +9,9 @@
     </div>
     <!-- /.row -->
     <div class="row">
+        <div id='ajax_loader' style="position: fixed; left: 50%; top: 50%;" ng-show="isRefreshing">
+            <img src="../../img/ajax-loader.gif" />
+        </div>
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Ongoing Trips</div>
@@ -50,6 +53,4 @@
         <!-- /.panel-body -->
     </div>
     <!-- /.panel -->
-</div>
-<!-- /.col-lg-6 -->
 </div>

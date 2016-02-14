@@ -6,7 +6,7 @@ function runBlock(APPACTIONS, $rootScope, ongoingTripsActionHandler, ongoingTrip
         ongoingTripsActionHandler.getOngoingTrips_ActionHandler();
     })
 }
-angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', "APPACTIONS", function (ONGOINGTRIPSACTIONS, APPACTIONS) {
+angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTRIPSACTIONS', "APPACTIONS", 'ongoingTripsActionHandler', '$rootScope', function (ONGOINGTRIPSACTIONS, APPACTIONS, ongoingTripsActionHandler,$rootScope) {
     var _handlers = {};
     var _exports = {};
     var _initialize = function () {
@@ -38,28 +38,23 @@ angular.module("logiWebMainDataProvider").store("ongoingTripsStore", ['ONGOINGTR
 
     function _getOngoingTrips() {
         var self = this;
-        return self.state.ongoingTripsModels;
+        return self.state.ongoingTrips;
     }
     function _handleOngoingTripsRefresh() {
         var self = this;
         var isrefreshing = true;
-        emitStoreChange.call(self, ONGOINGTRIPSACTIONS.ongoingTrips_Refreshing + ONGOINGTRIPSACTIONS.stale);
+        emitStoreChange(ONGOINGTRIPSACTIONS.ongoingTrips_Refreshing);
     }
     function _updateOngoingTripsRefresh(obj) {
         var self = this;
-        self.state.ongoingTripsModels = obj;
-        emitStoreChange.call(self, ONGOINGTRIPSACTIONS.ongoingTrips_RefreshComplete);
+        self.state.ongoingTrips = obj;
+        emitStoreChange(ONGOINGTRIPSACTIONS.ongoingTrips_RefreshComplete)
+        //emitStoreChange.call(self, ONGOINGTRIPSACTIONS.ongoingTrips_RefreshComplete);
     }
     function _handleOngoingTripsError() {
 
     }
-    function emitStoreChange(type) {
-        var self = this;
-        //Publish store stale change events only if there are active UI listeners
-        if (self.listeners(type).length > 0) {
-            $timeout(function () {
-                self.emit(type);
-            }, 0, true);
-        }
+    function emitStoreChange(name) {
+        $rootScope.$broadcast(name);
     }
 }])

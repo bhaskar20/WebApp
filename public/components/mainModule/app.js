@@ -5,10 +5,16 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angular-loading-bar',
-        'uiGmapgoogle-maps',
-        'flux',
-        'logiWebMainDataProvider'
+        'uiGmapgoogle-maps'
     ])
+    .constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    })
     .run(function($rootScope, $state, loginService) {
         Parse.initialize("UKcM4qKQUwfsF7UTQbQ0u6feYVJaBLNpD4uP8zFQ",
             "euwUL2zze4fkotAp8NLr0DoTgE093Dnfi4OVVU2K");
@@ -29,12 +35,9 @@ angular
             }
         })
     })
-    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider','uiGmapGoogleMapApiProvider','fluxProvider',
-function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider,uiGmapGoogleMapApiProvider,fluxProvider) {
+    .config(['$stateProvider', 'AUTH_EVENTS', '$urlRouterProvider', '$ocLazyLoadProvider', '$locationProvider','uiGmapGoogleMapApiProvider',
+function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $locationProvider,uiGmapGoogleMapApiProvider) {
             
-    //flux config
-    fluxProvider.setImmutableDefaults({ immutable: false });
-
             $locationProvider.html5Mode(true);
             $ocLazyLoadProvider.config({
                 debug: true,
@@ -63,7 +66,10 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                                     files: [
                                         'components/header/header.js',
                                         'components/sidebar/sidebar.js',
-                                        'components/sidebar-search/sidebar-search.js'
+                                        'components/sidebar-search/sidebar-search.js',
+                                        //services
+                                        'components/ongoing-trips/ongoingTripsService.js',
+                                        'components/maps/mapService.js'
                                     ]
                                 }),
                                 $ocLazyLoad.load({
@@ -192,7 +198,6 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                             return $ocLazyLoad.load({
                                 name: "logiWebMain",
                                 files: [
-                                    'components/ongoing-trips/ongoingTripsService.js',
                                     'components/ongoing-trips/ongoingTrips.js'
                                 ]
                             })
@@ -210,7 +215,6 @@ function($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, $
                             return $ocLazyLoad.load({
                                     name: "logiWebMain",
                                     files: [
-                                        'components/maps/mapService.js',
                                         'components/maps/mapController.js'
                                     ]
                                 })

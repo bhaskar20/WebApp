@@ -1,31 +1,52 @@
 'use strict';
-angular.module('logiWebMain')
-    .factory('mapService    ', ["$q",function ($q) {
-        var mapService = {};
-        mapService.ongoingTrips;
-        mapService.errors = [];
-        var init = function () {
-            var defer = $q.defer();
-            Parse.Cloud.run('GetMyAssignedTrips', {}).then(function (results) {
-                mapService.ongoingTrips = results;
-                _.forEach(results, function (result) {
-                    //todo save info required
-                    defer.resolve();
-                })
-            },
-                function (user, error) {
-                    mapService.errors.push(error);
-                    defer.reject();
-                });
-            defer.then(function () {
-                //call gps api for initial coordinates of gpsids
-            })
-        }
-        init();
+angular.module('logiWebMain').run(["mapService", function (mapService) {
+    //todo init
+}])
+angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService", "$http", function ($q, ongoingTripsService, $http) {
+    var ser = {};
 
-        mapService.setWatch = function (arr) {
-            //for each item in arr, set interval and call api in 10-15 sec and return current pos
-        }
+    ser.tripModels = [];
+    ser.state = {
+        stale: false,
+        refreshing: false,
+        error: null
+    };
+    var defer = $q.defer();
 
-        return mapService;
-    }])
+    var init = function () {
+        ser.state.refreshing = true;
+        ongoingTripsService.getongoingTrips().then(function(){
+            var ongoingTrips = ongoingTripsService.ongoingTrips;
+            var _gpsId = ongoingTrips.map(function (el) {
+                return el.gpsId;
+            });
+            $http({
+                method: "GET",
+                url: '/api/getDataAtTimeForMultipleGps/',
+                params: {
+                    "gpsIds": ["0358899056710760","0358899056710760"],
+                    //gpsIds: _gpsId;
+                    time: Date.now()
+                },
+                responseType: 'json',
+                cache: false
+            }).then(function (res) {
+                ser.state.refreshing = false;
+                defer.resolve(res);
+            }, function (err) {
+                ser.state.refreshing = false;
+                //handle error
+                defer.reject(err);
+            });
+        })
+    }
+    init();
+
+    ser.getInitLocations = function () {
+        return defer.promise;
+    }
+    ser.getSpecificLocations = function () {
+        //todo
+    }
+    return ser;
+}])

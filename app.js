@@ -64,11 +64,13 @@ conn.on('error', function (err) {
     console.log(err);
 });
 
-app.get('/api/*', gpsApiRoutes);
+app.get('/api', gpsApiRoutes);
 app.get('/', function (req, res, next) {
+    console.log("from /");
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-app.all("/*", function(req, res, next) {
+app.get("/*", function (req, res, next) {
+    console.log("from /*");
     res.redirect("/")
 });
 

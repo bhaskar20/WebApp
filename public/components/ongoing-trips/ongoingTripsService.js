@@ -18,15 +18,15 @@ angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q
 
         //init
         ser.init = function(){
-            ser.refreshing = true;
+            ser.state.refreshing = true;
             Parse.Cloud.run('GetMyAssignedTrips', {}).then(function (results) {
                 ser.ongoingTrips = filter(results);
-                ser.refreshing = false;
+                ser.state.refreshing = false;
                 defer.resolve();
             },
             function (user, error) {
                 ser.state.error = error;
-                ser.refreshing = false;
+                ser.state.refreshing = false;
                 defer.reject();
             });
         }

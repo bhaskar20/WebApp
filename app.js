@@ -65,14 +65,15 @@ conn.on('error', function (err) {
 });
 
 app.get('/api', gpsApiRoutes);
-app.get('/', function (req, res, next) {
-    console.log("from /");
+app.get(/^\/(index)?$/, function (req, res, next) {
+    // matches "/" or "/index"
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-app.get("/*", function (req, res, next) {
-    console.log("from /*");
-    res.redirect("/")
+app.get("*", function (req, res, next) {
+    console.log("redirecting to index.html");
+    res.redirect("/index")
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

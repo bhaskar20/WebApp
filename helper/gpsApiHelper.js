@@ -3,21 +3,20 @@
 
 
 module.exports = {
-    getDataAtTimeForOneGps: function (gpsId, time) {
+    getDataAtTimeForOneGps: function (gpsId, time,cb) {
         // whatever
-        Gps.
+        //console.log("in helper");
+        return Gps.
           findOne({
               gpsId: gpsId,
+              action: { $in: ['ping', 'alarm'] }
+
           }).
-        where('timeStamp').lt(time).
-        sort({ 'timeStamp': -1 }).
-              limit(1).
-        select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 }).
-        exec(function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            return result;
-        });
+        //where('timeStamp').lt(time).
+        sort({ 'timeStamp': 1 }).
+              //limit(1).
+        select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 })
+        //console.log("end helper");
     },
 
     getDataAtTimeForMultipleGps: function (gpsArray, time) {

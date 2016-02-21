@@ -64,14 +64,18 @@ conn.on('error', function (err) {
     console.log(err);
 });
 
-app.get('/api', gpsApiRoutes);
-app.get(/^\/(index)?$/, function (req, res, next) {
+app.use(/\/api/, gpsApiRoutes);
+
+//app.get('/api', function (req, res) {
+//    res.json({ message: 'hooray! welcome to our api!' });
+//});
+app.get(/^\/(home)?$/, function (req, res, next) {
     // matches "/" or "/index"
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-app.get("*", function (req, res, next) {
+app.get("/*", function (req, res, next) {
     console.log("redirecting to index.html");
-    res.redirect("/index")
+    res.redirect("/home")
 });
 
 

@@ -12,9 +12,10 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
         error: null
     };
     var defer = $q.defer();
+    var canceller = null;
     var init = function () {
         ser.state.refreshing = true;
-        var canceller = $q.defer();
+        canceller = $q.defer();
         ongoingTripsService.getongoingTrips().then(function(){
             var ongoingTrips = ongoingTripsService.ongoingTrips;
             var _gpsId = ongoingTrips.map(function (el) {
@@ -22,9 +23,10 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             });
             $http({
                 method: "GET",
-                url: '/api/getDataAtTimeForMultipleGps/',
+                url: '/api/getDataAtTimeForMultipleGps',
+                //take _gpsId
                 params: {
-                    "gpsIds": ["0358899056710760","0358899056710760"],
+                    "gpsIds": ["0358899056710760", "0358899056710760"],
                     //gpsIds: _gpsId;
                     time: Date.now()
                 },
@@ -50,7 +52,8 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             });
         })
     }
-
+    init();
+    //cancel unfinished request and make new one in every 10 secs 
     $interval(function () {
         canceller.resolve();
         init();
@@ -72,7 +75,7 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
                 "time": Date.now()
             },
             responseType: 'json',
-            timeout: canceller.promise,
+            //timeout: canceller.promise,
             cache: false
         }).then(function (res) {    
             defer.resolve(res);

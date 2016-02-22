@@ -20,13 +20,17 @@ router.get("/getDataAtTimeForOneGps", function (req, res) {
     console.log(result);
     
 });
-router.get("/getDataAtTimeForMultipleGps/:gpsIds/:time", function (req, res) {
+router.get("/getDataAtTimeForMultipleGps", function (req, res) {
     console.log("here");
-    console.log(req.params.gpsIds);
-    console.log(req.params.time);
-    var arr = req.params.gpsIds.split(",");
-    var result = methods.getDataAtTimeForMultipleGps(req.params.gpsIds, req.params.time);
-    send.json(result);
+    console.log(req.query.gpsIds);
+    console.log(req.query.time);
+    //var arr = req.query.gpsIds.split(",");
+    var result = methods.getDataAtTimeForMultipleGps(req.query.gpsIds, req.query.time);
+    result.exec(function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    });
 });
 router.get("/getDataBWTimeForOneGps/:gpsId/:startTime/:endTime", function (req, res) {
     var result = methods.getDataBWTimeForOneGps(req.params.gpsId, req.params.startTime, req.params.endTime);

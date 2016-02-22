@@ -10,7 +10,6 @@ module.exports = {
           findOne({
               gpsId: gpsId,
               action: { $in: ['ping', 'alarm'] }
-
           }).
         //where('timeStamp').lt(time).
         sort({ 'timeStamp': 1 }).
@@ -21,18 +20,15 @@ module.exports = {
 
     getDataAtTimeForMultipleGps: function (gpsArray, time) {
         // whateve
-        Gps.
+        return Gps.
           find({
-              gpsId: { $in: gpsArray }
+              gpsId: { $in: gpsArray },
+              action: { $in: ['ping', 'alarm'] }
           }).
-          where('timeStamp').lt(time).
-          sort({ 'timeStamp': -1 }).
+          //where('timeStamp').lt(time).
+          sort({ 'timeStamp': 1 }).
             limit(1).
-          select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 }).
-          exec(function (err, result) {
-              if (err) throw err;
-              console.log(result);
-          });
+          select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 })
     },
 
     getDataBWTimeForOneGps: function (gps, startTime, endTime) {

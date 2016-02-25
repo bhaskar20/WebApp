@@ -1,10 +1,13 @@
 ﻿var methods = require('../helper/gpsApiHelper.js');
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 router.get('/', function (req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
+//bhaskar 25th feb
+// do we really need two methods(getDataAtTimeForOneGps,getDataAtTimeForMultipleGps)?? can't we have a single route like getDataAtTimeForGps,we can send one or multiple gps id's in a array
 router.get("/getDataAtTimeForOneGps", function (req, res) {
     //res.set({'content-type': 'application/json'});
     //console.log("in getDataAtTimeForOneGps");
@@ -21,9 +24,9 @@ router.get("/getDataAtTimeForOneGps", function (req, res) {
     
 });
 router.get("/getDataAtTimeForMultipleGps", function (req, res) {
-    console.log("here");
+    //console.log("here");
     console.log(req.query.gpsIds);
-    console.log(req.query.time);
+    //console.log(req.query.time);
     //var arr = req.query.gpsIds.split(",");
     var result = methods.getDataAtTimeForMultipleGps(req.query.gpsIds, req.query.time);
     result.exec(function (err, result) {

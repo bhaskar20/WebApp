@@ -24,11 +24,15 @@ module.exports = {
           find({
               gpsId: { $in: gpsArray },
               action: { $in: ['ping', 'alarm'] }
-          }).
+          })
+        //bhaskar
+        //we can ignore optimization and make query for each gpsid in array, using getDataAtTimeForOneGps, and club the results or we can process the result from above query
+        //and send the response
+        //we need latest gpscoord for each gpsid in gpsArray,
           //where('timeStamp').lt(time).
-          sort({ 'timeStamp': 1 }).
-            limit(1).
-          select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 })
+          //sort({ 'timeStamp': 1 }).
+          //  limit(1).
+          //select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 })
     },
 
     getDataBWTimeForOneGps: function (gps, startTime, endTime) {
@@ -53,6 +57,8 @@ module.exports = {
               gpsId: { $in: gpsArray }
           }).
           where('timeStamp').lt(endTime).gt(startTime).
+            //bhaskar
+            //we will face same problem as above in this funtion too
           sort({ 'timeStamp': -1 }).
           select({ gpsId: 1, timeStamp: 1, location: 1, speed: 1, action: 1 }).
           exec(function (err, result) {

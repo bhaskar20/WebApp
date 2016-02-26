@@ -1,7 +1,4 @@
 'use strict';
-angular.module('logiWebMain').run(["mapService", function (mapService) {
-    //todo init
-}])
 angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService", "$http", "$interval", function ($q, ongoingTripsService, $http, $interval) {
     var ser = {};
 
@@ -13,7 +10,8 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
     };
     var defer = $q.defer();
     var canceller = null;
-    var init = function () {
+
+    ser.init = function () {
         ser.state.refreshing = true;
         canceller = $q.defer();
         ongoingTripsService.getongoingTrips().then(function(){
@@ -26,7 +24,7 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
                 url: '/api/getDataAtTimeForMultipleGps',
                 //take _gpsId
                 params: {
-                    "gpsIds": ["0358899056710760", "0358899056710760"],
+                    "gpsIds": _gpsId,
                     //gpsIds: _gpsId;
                     time: Date.now()
                 },
@@ -37,10 +35,11 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
                 ser.gpsModels = ongoingTrips.map(function (el) {
                     var copy = el;
                     res.data.forEach(function (r) {
-                        if (r.gpsId = copy.gpsId) {
+                        if (r.gpsId === copy.gpsId) {
                             _.extend(copy, r);
                         }
-                    })
+                    });
+                    return copy;
                     //merge the objkects
                 });
                 ser.state.refreshing = false;
@@ -52,11 +51,10 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             });
         })
     }
-    init();
     //cancel unfinished request and make new one in every 10 secs 
     $interval(function () {
         canceller.resolve();
-        init();
+        ser.init();
     },10000);
 
     ser.getInitLocations = function () {
@@ -69,7 +67,7 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             method: "GET",
             url: '/api/getDataAtTimeForOneGps/',
             params: {
-                "gpsIds":gpdId,
+                "gpsId":gpdId,
                 //gpsIds: _gpsId;
                 //todo time
                 "time": Date.now()

@@ -60,7 +60,7 @@ function ($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, 
             authenticate: true,
             templateUrl: 'components/dashboard/main.html',
             resolve: {
-                loadMyService: ['$ocLazyLoad', '$injector', function ($ocLazyLoad, $injector) {
+                loadDashboardServices: ['$ocLazyLoad', '$injector', function ($ocLazyLoad, $injector) {
                     return $ocLazyLoad.load({
                         name: 'logiWebMain',
                         files: [
@@ -72,7 +72,9 @@ function ($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, 
                                     'components/maps/mapService.js'
                         ]
                     }).then(function () {
+                        var ongoingTripsService = $injector.get("ongoingTripsService");
                         var mapService = $injector.get("mapService");
+                        ongoingTripsService.init();
                         mapService.init();
                     })
                         ,

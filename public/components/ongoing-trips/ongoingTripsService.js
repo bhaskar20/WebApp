@@ -19,7 +19,8 @@ angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q
         //init
         ser.init = function(){
             ser.state.refreshing = true;
-            Parse.Cloud.run('GetMyAssignedTrips', {}).then(function (results) {
+            Parse.Cloud.run('GetMyOnGoingTrips', {}).then(function (results) {
+                if (results.length == 0) { defer.reject(); return;}
                 ser.ongoingTrips = filter(results);
                 ser.state.refreshing = false;
                 defer.resolve();
@@ -30,7 +31,6 @@ angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q
                 defer.reject();
             });
         }
-        ser.init();
         //local methods
         function filter(results) {
             var trips = [];

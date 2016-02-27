@@ -68,12 +68,15 @@ function ($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, 
                                     'components/sidebar/sidebar.js',
                                     'components/sidebar-search/sidebar-search.js',
                                     //services
+                                    'components/assigned-trips/assignedTripsService.js',
                                     'components/ongoing-trips/ongoingTripsService.js',
-                                    'components/maps/mapService.js'
+                                    'components/maps/mapService.js',
                         ]
                     }).then(function () {
                         var ongoingTripsService = $injector.get("ongoingTripsService");
+                        var assignedTripsService = $injector.get("assignedTripsService");
                         var mapService = $injector.get("mapService");
+                        assignedTripsService.init();
                         ongoingTripsService.init();
                         mapService.init();
                     })
@@ -187,7 +190,6 @@ function ($stateProvider, AUTH_EVENTS, $urlRouterProvider, $ocLazyLoadProvider, 
                     return $ocLazyLoad.load({
                         name: "logiWebMain",
                         files: [
-                            'components/assigned-trips/assignedTripsService.js',
                             'components/assigned-trips/assignedTrips.js'
                         ]
                     })

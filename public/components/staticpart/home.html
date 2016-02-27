@@ -131,108 +131,140 @@
 
     <!-- banner-bottom banner-bottom-temp -->
     <div class="banner-bottom banner-bottom-temp" id="about">
-        <div class="container">
+        <div class="container-fluid container-fluid-temp">
             <h2 class="tittle tittle-temp">WELCOME TO LOGIPORT</h2>
             <div class="bottom-grids bottom-grids-temp">
-                <div id="reliability" class="col-md-4 col-md-4-temp bottom-grid bottom-grid-temp animated zoomIn">
+
+                <div class="col-md-3 col-md-3-temp bottom-grid bottom-grid-temp">
+                    <div class="bottom-text bottom-text-temp" style="padding-bottom:60px;">
+                        <h3>Ontime Pickup & Drops</h3>
+                        <p>With our tech enabled<br> dedicated fleet,<br>we ensure lesser<br> lead and turn around time</p>
+                    </div>
+                    <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>
+                </div>
+
+                <div class="col-md-3 col-md-3-temp bottom-grid bottom-grid-temp">
                     <div class="bottom-text bottom-text-temp">
                         <h3>Reliability</h3>
-                        <p>Time to value<br> manage logistics risk<br> Client centric approach<br> efficient services</p>
-                        <br>
-                        <br>
-                        <br>
+                        <p>Time to value<br> manage logistics risk<br> Client centric approach<br> </p>
                     </div>
-                    <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-road" aria-hidden="true"></span></div>
+                    <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></div>
                 </div>
-                <div id="visibility" class="col-md-4 col-md-4-temp bottom-grid bottom-grid-temp animated zoomIn">
+
+                <div class="col-md-3 col-md-3-temp bottom-grid bottom-grid-temp">
                     <div class="bottom-text bottom-text-temp">
                         <h3>Visiblity</h3>
-                        <p>Real Time tracking of fleet with complete geo-visualization,Load status and Driver status.</p>
-                        <br>
-                        <br>
-                        <br>
+                        <p>Real Time tracking<br> of fleet with complete<br> geo-visualization,<br> Load status and Driver status.</p><br><br>
                     </div>
-                    <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></div>
+                    <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></div>
                 </div>
-                <div id="efficiency" class="col-md-4 col-md-4-temp bottom-grid bottom-grid-temp animated zoomIn">
+
+                <div  class="col-md-3 col-md-3-temp bottom-grid bottom-grid-temp">
                     <div class="bottom-text bottom-text-temp" style="padding-top:52px;padding-bottom:30px;">
                         <h3>Efficiency</h3>
-                        <p>With Technology at core bringing disruptive business models to Logistics industry and getting better solutions and services for sustainable growth.</p>
+                        <p>With Technology at core<br> bringing disruptive business models to Logistics industry<br> and getting better solutions<br> and services for<br> sustainable growth.</p><br>
                     </div>
                     <div class="bottom-spa bottom-spa-temp"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></div>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
-            <style type="text/css">
-                #visibility{
-                    -webkit-animation-delay: 1s;
-                }
-                #efficiency{
-                    -webkit-animation-delay: 2s;
-                }
-            </style>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $("#reliability, #visibility, #efficiency").hide();
-                    
-                    $(window).scroll(function(){
-                        if($(window).scrollTop() >= 500){
-                            $("#reliability").show();
-                            $("#visibility").show();
-                            $("#efficiency").show();
-                        }
-                    });    
-                });
-            </script>
         </div>
     </div>
     <!-- //banner-bottom footer -->
 
     <div id="contact" class="footer footer-temp" ng-controller="contactController">
-    <div class="container">
+    <div class="container-fluid container-fluid-temp">
         <div class="contact contact-temp">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="contact-page">
                     <div class="contact-info">
                         <h2 class="tittle tittle-temp">CONTACT</h2>
                     </div>
-                    <div class="contact-form contact-form-temp">
-                        <form>
-                            <input type="text" placeholder="name" ng-model="contactData.name" required>
-                            <input type="text" placeholder="Email" ng-model="contactData.email" required>
-                            <input type="text" placeholder="Telephone" ng-model="contactData.telephone">
-                            <textarea ng-model="contactData.message" placeholder="Short Message"></textarea required>
-                            <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
-                        </form>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Contact Form -->
+                            <div class="contact-form contact-form-temp">
+                                <form>
+                                    <input type="text" placeholder="name" ng-model="contactData.name" required>
+                                    <input type="text" placeholder="Email" ng-model="contactData.email" required>
+                                    <input type="text" placeholder="Telephone" ng-model="contactData.telephone">
+                                    <textarea ng-model="contactData.message" placeholder="Short Message"></textarea required>
+                                    <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Map div -->
+                            <div class="contact-map contact-map-temp" id="overlay">
+                                <div id="map" style="width:100%;height:370px;"></div>
+                                    <script type="text/javascript">
+                                        var map;
+                                        function initMap() {
+                                            var myLatLng = {lat: 19.1168602, lng: 72.8732958};
+                                                map = new google.maps.Map(document.getElementById('map'), {
+                                                scrollwheel: false,
+                                                center: myLatLng,
+                                                zoom: 18
+                                            });
+
+                                            var marker = new google.maps.Marker({
+                                                position: myLatLng,
+                                                map: map,
+                                                animation:google.maps.Animation.DROP,
+                                                title: 'Logiport Pvt. Ltd.'
+                                            });
+
+                                            var contentString = "<h4 style='color:black'>Logiport Pvt. Ltd.</h4>"+
+                                                                    "<p style='margin-top:10px;color:grey'>L-603, Maheshwari Nagar,<br>"+
+                                                                    "Chakala, Andheri (East),<br>"+
+                                                                    "Mumbai - 400 093</p>";
+
+                                            var infowindow = new google.maps.InfoWindow({
+                                                content: contentString
+                                            });
+                                            marker.addListener('click', function() {
+                                                infowindow.open(map, marker);
+                                              });
+                                        }
+                                    </script>
+                                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBPK-J5T-VdpIxw8nYmnm9wubPnuICYos&callback=initMap">
+                                    </script>
+                            </div>
+                            <!-- Map Div ends -->
+                        </div>
                     </div>
+
                     <span class="alert" ng-model="message"></span>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- //footer -->
     <footer class="text-center">
         <div class="footer-above">
-            <div class="footer-box">
+            <div class="container">
                 <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3 class="footer-title">Logiport Technologies Pvt. Ltd.</h3>
-                        <p>L-603,<br>Maheshwari Nagar,<br>Kondivita Road,<br>Chakala,<br>Andheri East</p>
+                    <div class="col-md-6">
+                        <h5 class="footer-title">Logiport Technologies Pvt. Ltd.</h5>
+                        <p>L-603,Maheshwari Nagar,Kondivita Road,<br>Chakala,Andheri East</p>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <h3 class="footer-title">Links</h3>
+                    <div class="footer-col col-md-6">
+                        <h5 class="footer-title">Links</h5>
                         <p><i class="fa fa-phone-square"></i>  Call us <br>Amit: 8888837102<br>Ankur: 8879006469 <br><br><i class="fa fa-envelope"></i> Get in touch<br> Sales: <a href="mailto:your-email@your-domain.com">Sales@logiport.in</a> <br>Contact: <a href="mailto:your-email@your-domain.com">Contact@logiport.in</a></p>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <h3 class="footer-title">Logo</h3>
-                        <p>
-                        	Logo
-                        </p>
-                    </div>
+                    <!--<div class="footer-col col-md-2">
+                        <div>
+                            <img class="footer-logo" src="../../img/logo.jpg" />
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>
     </footer>
+
     <!-- smooth scrolling -->
     <script type="text/javascript">
     $(document).ready(function() {

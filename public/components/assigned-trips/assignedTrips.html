@@ -24,9 +24,9 @@
                                     <th>Start Time</th>
                                     <th>Start Location</th>
                                     <th>End Location</th>
-                                    <th>Completed Time</th>
                                     <th>Sales ID</th>
                                     <th>Kam ID</th>
+                                    <th>Action</th>
                                     <tbody>
                                         <tr class="odd gradeX" ng-repeat="trip in trips">
                                             <td>{{trip.tripId}}</td>
@@ -37,6 +37,7 @@
                                             <td>{{trip.endLocation}}</td>
                                             <td>{{trip.salesId}}</td>
                                             <td>{{trip.kamId}}</td>
+                                            <td><button class="btn btn-sm btn-primary" ng-click="startTrip(trip.tripId)">Start</button></td>
                                         </tr>
                                     </tbody>
                                 </tr>

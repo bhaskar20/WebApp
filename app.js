@@ -5,9 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require("compression");
+var moment = require('moment');
+
+//db
+var mongoose = require('mongoose');
+var uriUtil = require('mongodb-uri');
 
 var app = express();
-
+//routes
+var gpsApiRoutes = require("./routes/gpsApiRoutes.js");
 //favicon
 app.use(compress());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -25,12 +31,53 @@ app.use("/img", express.static(path.join(__dirname, 'public', 'img')));
 app.use("/fonts", express.static(path.join(__dirname, 'public', 'fonts')));
 app.use("/components", express.static(path.join(__dirname, 'public', 'components')));
 
-app.get('/',function(req, res, next){
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-})
-app.all("/*", function(req, res, next) {
-    res.redirect("/")
+//code starts
+//database
+var options = {
+    server: {
+        socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 30000
+        }
+    },
+    replset: {
+        socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 30000
+        }
+    }
+};
+var dbConfig = require('./config/database.js')
+var mongodbUri = dbConfig.url;
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+
+mongoose.connect(mongooseUri, options, function (argument) {
+    console.log(mongoose.connection.readyState);
 });
+var conn = mongoose.connection;
+
+conn.on('open', function (ref) {
+    console.log('Connected to mongo server on ' + moment().format('MMMM Do YYYY,hh:mm:ss a'));
+});
+conn.on('error', function (err) {
+    console.log('Could not connect to mongo server on' + moment().format('MMMM Do YYYY,hh:mm:ss a'));
+    console.log(err);
+});
+
+app.use(/\/api/, gpsApiRoutes);
+
+//app.get('/api', function (req, res) {
+//    res.json({ message: 'hooray! welcome to our api!' });
+//});
+app.get(/^\/(home)?$/, function (req, res, next) {
+    // matches "/" or "/index"
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+app.get("/*", function (req, res, next) {
+    console.log("redirecting to index.html");
+    res.redirect("/home")
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

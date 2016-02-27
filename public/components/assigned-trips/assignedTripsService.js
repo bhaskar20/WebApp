@@ -51,6 +51,18 @@ angular.module('logiWebMain').factory('assignedTripsService', ["$q", function ($
     ser.getAssignedTrips = function () {
         return defer.promise;
     }
+
+    ser.start = function (tripId) {
+        var deferred = $q.defer();
+        Parse.Cloud.run('StartTrip', {"TripId":tripId}).then(function (results) {
+            deferred.resolve(results);
+        }, function (user, error) {
+            ser.state.error.push(error);
+            ser.state.refreshing = false;
+            deferred.reject();
+        });
+        return deferred.promise;
+    };
     return ser;
 }])
 

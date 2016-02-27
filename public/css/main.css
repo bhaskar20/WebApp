@@ -89,3 +89,8 @@ body {
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.footer-logo{
+    width:300px;
+    height:140px;
+}

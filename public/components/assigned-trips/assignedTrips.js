@@ -10,8 +10,13 @@ angular
         });
 
         $scope.startTrip = function (tripId) {
-            reqOrderService.start(tripId).then(function (results) {
-                $scope.init();
+            assignedTripsService.start(tripId).then(function (results) {
+                if (results) {
+                    assignedTripsService.init();
+                }
+                else {
+                    $window.alert("something bad happend,please try again");
+}
             }, function (user, err) {
                 if (err) {
                     $window.alert("something bad happend");

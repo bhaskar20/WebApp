@@ -1,9 +1,4 @@
 'use strict';
-angular.module('logiWebMain').run(runBlock);
-runBlock.$inject = ['ongoingTripsService'];
-function runBlock(ongoingTripsService) {
-    ongoingTripsService.init();
-};
 angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q) {
         var ser = {};
         ser.state = {
@@ -19,7 +14,7 @@ angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q
         //init
         ser.init = function(){
             ser.state.refreshing = true;
-            Parse.Cloud.run('GetMyOnGoingTrips', {}).then(function (results) {
+            return Parse.Cloud.run('GetMyOnGoingTrips', {}).then(function (results) {
                 if (results.length == 0) { defer.reject(); return;}
                 ser.ongoingTrips = filter(results);
                 ser.state.refreshing = false;
@@ -55,5 +50,16 @@ angular.module('logiWebMain').factory('ongoingTripsService', ["$q", function ($q
         ser.getongoingTrips = function () {
             return defer.promise;
         }
+        ser.stop = function (tripId) {
+            var deferred = $q.defer();
+            Parse.Cloud.run('EndTrip', { "TripId": tripId }).then(function (results) {
+                deferred.resolve(results);
+            }, function (user, error) {
+                ser.state.error.push(error);
+                ser.state.refreshing = false;
+                deferred.reject();
+            });
+            return deferred.promise;
+        };
         return ser;
     }])

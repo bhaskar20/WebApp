@@ -94,3 +94,10 @@ body {
     width:300px;
     height:140px;
 }
+.refresh-dashboard{
+    background-image:url("../img/ajax-loader.gif");
+    z-index:1001;
+    background-repeat:no-repeat;
+    height:500px;
+    width:500px;
+}

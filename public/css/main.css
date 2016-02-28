@@ -98,6 +98,7 @@ body {
     background-image:url("../img/ajax-loader.gif");
     z-index:1001;
     background-repeat:no-repeat;
-    height:500px;
-    width:500px;
+    height:50px;
+    width:50px;
+    margin-left: 50%;
 }

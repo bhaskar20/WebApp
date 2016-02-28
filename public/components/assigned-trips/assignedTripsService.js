@@ -15,7 +15,7 @@ angular.module('logiWebMain').factory('assignedTripsService', ["$q", function ($
     //init
     ser.init = function () {
         ser.state.refreshing = true;
-        Parse.Cloud.run('GetMyAssignedTrips', {}).then(function (results) {
+        return Parse.Cloud.run('GetMyAssignedTrips', {}).then(function (results) {
             if (results.length == 0) { defer.reject(); ser.state.error.push("No Assigned Trips"); return; }
             ser.assignedTrips = filter(results);
             ser.state.refreshing = false;
@@ -65,4 +65,3 @@ angular.module('logiWebMain').factory('assignedTripsService', ["$q", function ($
     };
     return ser;
 }])
-

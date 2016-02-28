@@ -5,6 +5,7 @@
         </div>
         <div class="col-lg-4" style="padding-top:60px">
             <button class="btn btn-primary">future Functionality</button>
+            <button class="btn btn-primary" ng-click="refresh()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
         </div>
     </div>
     <!-- /.row -->
@@ -16,7 +17,8 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                      <div class="refresh-dashboard" ng-show="isRefreshing"></div>
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example" ng-hide="isRefreshing">
                             <thead>
                                 <tr>
                                     <th>Trip ID</th>

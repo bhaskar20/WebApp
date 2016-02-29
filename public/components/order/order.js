@@ -68,14 +68,18 @@ angular
             "StartLocationLong": data.startLocationLong,
             "EndLocationLat": data.endLocationLat,
             "EndLocationLong": data.endLocationLong,
-            "TripList": []
+            "TripList": null
         }
+        $scope.tripList= Array;
         $scope.tempTruck = {};
-        $scope.add = function() {
-            $scope.res.TripList.push($scope.tempTruck);
+        $scope.add = function () {
+            $scope.tempTruck["startTime"] = $scope.assignedTime;
+            $scope.tripList.push($scope.tempTruck);
             $scope.tempTruck = {};
         }
-        $scope.ok = function() {
+        $scope.ok = function () {
+            $scope.res["TripList"] = $scope.tripList;
+            console.log($scope.res.TripList.length);
             orderService.assignTrucksToOrder($scope.res).then(function (result) {
                 $uibModalInstance.close(result);
             },function (user,err) {
@@ -85,5 +89,13 @@ angular
         $scope.close = function(res) {
             $uibModalInstance.dismiss('cancel');
         }
-    }])
-//test
+
+        //datePicker
+        $scope.assignedTime = new Date();
+        $scope.datepickerOpen = false;
+        $scope.openCalendar = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $scope.datepickerOpen = true;
+        };
+        }])

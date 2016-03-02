@@ -68,9 +68,8 @@ angular
             "StartLocationLong": data.startLocationLong,
             "EndLocationLat": data.endLocationLat,
             "EndLocationLong": data.endLocationLong,
-            "TripList": null
         }
-        $scope.tripList= Array;
+        $scope.tripList= [];
         $scope.tempTruck = {};
         $scope.add = function () {
             $scope.tempTruck["startTime"] = $scope.assignedTime;
@@ -80,11 +79,17 @@ angular
         $scope.ok = function () {
             $scope.res["TripList"] = $scope.tripList;
             console.log($scope.res.TripList.length);
-            orderService.assignTrucksToOrder($scope.res).then(function (result) {
-                $uibModalInstance.close(result);
-            },function (user,err) {
-                console.log("Something bad occured at assignTrucksToOrder ");
-            })
+            if ($scope.res.TripList.length != 0) {
+                orderService.assignTrucksToOrder($scope.res).then(function (result) {
+                    $uibModalInstance.close(result);
+                }, function (user, err) {
+                    console.log("Something bad occured at assignTrucksToOrder ");
+                })
+            }
+            else {
+                //todo display error
+                window.alert("no trucks added");
+            }
         }
         $scope.close = function(res) {
             $uibModalInstance.dismiss('cancel');

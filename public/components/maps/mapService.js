@@ -36,14 +36,11 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
                     var copy = el;
                     res.data.forEach(function (r) {
                         if (r.gpsId === copy.gpsId) {
-                          var position = {"latitude":r.location[0],"longitude":r.location[1]};
                             _.extend(copy, r);
-                            _.extend(copy,position);
-                            delete copy.location;
                         }
                     });
                     return copy;
-                    //merge the objects
+                    //merge the objkects
                 });
                 ser.state.refreshing = false;
                 defer.resolve();
@@ -54,8 +51,7 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             });
         })
     }
-
-    //cancel unfinished request and make new one in every 10 secs
+    //cancel unfinished request and make new one in every 10 secs 
     $interval(function () {
         canceller.resolve();
         ser.init();
@@ -79,7 +75,7 @@ angular.module('logiWebMain').factory('mapService', ["$q", "ongoingTripsService"
             responseType: 'json',
             //timeout: canceller.promise,
             cache: false
-        }).then(function (res) {
+        }).then(function (res) {    
             defer.resolve(res);
         }, function (err) {
             //handle error

@@ -15,11 +15,7 @@ angular.module('logiWebMain')
         };
         orderService.assignTrucksToOrder = function (data) {
             return Parse.Cloud.run('AssignTripsToParticularOrder', {
-                "OrderId": data.OrderId, "StartLocationLat": data.StartLocationLat,
-                "StartLocationLong": data.StartLocationLong,
-                "EndLocationLat": data.EndLocationLat,
-                "EndLocationLong": data.EndLocationLong,
-                "TripList": data.TripList
+                data
             }).then(function(results) {
                     return results;
                 },

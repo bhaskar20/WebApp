@@ -1,3 +1,15 @@
 <div>
-    <ui-gmap-google-map center='mapOpts.center' zoom='mapOpts.zoom'></ui-gmap-google-map>
+    <div class="row" style="margin:1em;">
+      <div class="col-md-2" style="background:lavender;margin-left:-30px;">
+        <div>
+          <h4 style="text-align:center;">Filters</h4>
+        </div>
+      </div>
+      <div class="col-md-10" style="margin-left:30px;">
+        <ui-gmap-google-map center='mapOpts.center' zoom='mapOpts.zoom'>
+          <ui-gmap-markers models="marker" icon="'icon'" coords="position">
+          </ui-gmap-markers>
+        </ui-gmap-google-map>
+      </div>
+    </div>
 </div>

@@ -5,7 +5,8 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angular-loading-bar',
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'ui.bootstrap.datetimepicker'
     ])
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',

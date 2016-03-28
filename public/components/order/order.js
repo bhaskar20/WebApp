@@ -68,22 +68,39 @@ angular
             "StartLocationLong": data.startLocationLong,
             "EndLocationLat": data.endLocationLat,
             "EndLocationLong": data.endLocationLong,
-            "TripList": []
         }
+        $scope.tripList= [];
         $scope.tempTruck = {};
-        $scope.add = function() {
-            $scope.res.TripList.push($scope.tempTruck);
+        $scope.add = function () {
+            $scope.tempTruck["startTime"] = $scope.assignedTime;
+            $scope.tripList.push($scope.tempTruck);
             $scope.tempTruck = {};
         }
-        $scope.ok = function() {
-            orderService.assignTrucksToOrder($scope.res).then(function (result) {
-                $uibModalInstance.close(result);
-            },function (user,err) {
-                console.log("Something bad occured at assignTrucksToOrder ");
-            })
+        $scope.ok = function () {
+            $scope.res["TripList"] = $scope.tripList;
+            console.log($scope.res.TripList.length);
+            if ($scope.res.TripList.length != 0) {
+                orderService.assignTrucksToOrder($scope.res).then(function (result) {
+                    $uibModalInstance.close(result);
+                }, function (user, err) {
+                    console.log("Something bad occured at assignTrucksToOrder ");
+                })
+            }
+            else {
+                //todo display error
+                window.alert("no trucks added");
+            }
         }
         $scope.close = function(res) {
             $uibModalInstance.dismiss('cancel');
         }
-    }])
-//test
+
+        //datePicker
+        $scope.assignedTime = new Date();
+        $scope.datepickerOpen = false;
+        $scope.openCalendar = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $scope.datepickerOpen = true;
+        };
+        }])

@@ -33,7 +33,7 @@ angular
         }
         $scope.init();
         $scope.assignTrip = function(id, start, end) {
-            var tempData = {
+            $scope.tempData = {
                 "orderId": id,
                 "startLocationLat": start.split(',')[0],
                 "startLocationLong": start.split(',')[1],
@@ -48,7 +48,7 @@ angular
                 size: 'lg',
                 resolve: {
                     data: function() {
-                        return tempData;
+                        return $scope.tempData;
                     }
                 }
             });
